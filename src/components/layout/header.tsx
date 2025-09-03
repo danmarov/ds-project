@@ -145,7 +145,7 @@ export default function Header() {
   const shouldBeBlack: boolean = blackHeaderPaths.includes(pathname);
 
   // Определяем, должен ли текст быть черным (акцентным)
-  const shouldTextBeBlack: boolean = shouldBeBlack || !shouldTextBeWhite;
+  // const shouldTextBeBlack: boolean = shouldBeBlack || !shouldTextBeWhite;
 
   const toggleMobileMenu = (): void => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -159,12 +159,12 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 right-0 left-0 z-30 mx-auto flex max-w-[1344px] items-center justify-between bg-white/80 px-4 pt-6 pb-6 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none",
+          "absolute top-0 right-0 left-0 z-30 mx-auto flex max-w-[1344px] items-center justify-between bg-transparent px-4 pt-6 pb-6",
           // Мобильное меню всегда черное
           isMobileMenuOpen && "text-black lg:bg-transparent",
           // Динамический цвет текста на десктопе - УБРАЛ transition-all отсюда
-          shouldTextBeBlack && !isMobileMenuOpen && "lg:text-black",
-          !shouldTextBeBlack && !isMobileMenuOpen && "lg:text-white",
+          shouldBeBlack && !isMobileMenuOpen && "text-black",
+          // !shouldTextBeBlack && !isMobileMenuOpen && "lg:text-white",
         )}
       >
         <Link href={"/"}>
@@ -174,9 +174,7 @@ export default function Header() {
               // Логотип - синхронизируем transition с остальными элементами
               "transition-colors duration-300 ease-in-out",
               // Логотип всегда черный на мобильном меню или когда нужен черный текст
-              isMobileMenuOpen || shouldTextBeBlack
-                ? "text-black"
-                : "lg:text-white",
+              isMobileMenuOpen ? "text-black" : "lg:text-white",
             )}
           />
         </Link>
@@ -192,8 +190,8 @@ export default function Header() {
               isMobileMenuOpen
                 ? "scale-0 rotate-90 text-black"
                 : "scale-100 rotate-0",
-              !isMobileMenuOpen && shouldTextBeBlack && "text-black",
-              !isMobileMenuOpen && !shouldTextBeBlack && "lg:text-white",
+              // !isMobileMenuOpen && shouldTextBeBlack && "text-black",
+              // !isMobileMenuOpen && !shouldTextBeBlack && "lg:text-white",
             )}
           />
           <X
@@ -222,9 +220,9 @@ export default function Header() {
                   variant={"outline"}
                   className={cn(
                     "gap-3 uppercase transition-colors duration-300 ease-in-out",
-                    shouldTextBeBlack
-                      ? "border-black text-black hover:bg-black hover:text-white"
-                      : "border-white text-white hover:bg-white hover:text-black",
+                    // shouldTextBeBlack
+                    //   ? "border-black text-black hover:bg-black hover:text-white"
+                    //   : "border-white text-white hover:bg-white hover:text-black",
                   )}
                 >
                   <CustomIcon.Menu />
@@ -243,7 +241,7 @@ export default function Header() {
             animate={{ opacity: 1, scaleY: 1 }}
             exit={{ opacity: 0, scaleY: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed top-0 right-0 left-0 z-20 origin-top bg-white pt-[84px] text-black lg:hidden"
+            className="absolute top-0 right-0 left-0 z-20 origin-top bg-white pt-[84px] text-black lg:hidden"
           >
             <nav className="px-4 py-6 pt-1">
               <ul className="flex flex-col gap-6">

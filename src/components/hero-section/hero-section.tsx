@@ -3,15 +3,25 @@ import { CustomIcon } from "@/components/ui/custom-icon";
 import MobileDecoration from "./mobile-decoration";
 import DesktopDecoration from "./desktop-decoration";
 import Link from "next/link";
+import Image from "next/image";
 export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative grid h-[100svh] place-items-center bg-blue-500 bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: "url(/hero-background.png)",
-      }}
+      className="b relative grid h-[100svh] place-items-center bg-[#034ab9]"
+      // style={{
+      //   backgroundImage: "url(/hero-background.png)",
+      // }}
     >
+      <Image
+        src="/hero-background.png"
+        alt="Hero background"
+        fill
+        className="object-cover object-center"
+        priority
+        quality={85}
+        sizes="100vw"
+      />
       <MobileDecoration />
 
       <div className="section h-full backdrop-blur-xs md:backdrop-blur-none">
