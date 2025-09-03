@@ -36,11 +36,7 @@ const step1Schema = z.object({
 });
 
 const step2Schema = z.object({
-  message: z
-    .string()
-    .min(1, "Повідомлення обов'язкове для заповнення")
-    .min(5, "Повідомлення повинно містити мінімум 5 символів")
-    .max(500, "Повідомлення не повинно перевищувати 500 символів"),
+  message: z.string().optional(),
 });
 
 type Step1Data = z.infer<typeof step1Schema>;
@@ -257,7 +253,7 @@ export default function FeedbackPage() {
                   className=""
                 >
                   <Input
-                    label="Введіть ваше повідомлення"
+                    label="Введіть ваше повідомлення (необовʼязково)"
                     placeholder="Напишіть ваше повідомлення..."
                     error={step2Form.formState.errors.message?.message}
                     disabled={step2Form.formState.isSubmitting}

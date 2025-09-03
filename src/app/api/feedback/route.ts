@@ -16,11 +16,7 @@ const feedbackSchema = z.object({
       const usernameRegex = /^@?[a-zA-Z0-9_]{3,}$/;
       return phoneRegex.test(value) || usernameRegex.test(value);
     }, "Введіть коректний номер телефону або username"),
-  message: z
-    .string()
-    .min(1, "Повідомлення обов'язкове для заповнення")
-    .min(5, "Повідомлення повинно містити мінімум 5 символів")
-    .max(500, "Повідомлення не повинно перевищувати 500 символів"),
+  message: z.string().optional(),
   timestamp: z.string().optional(),
 });
 

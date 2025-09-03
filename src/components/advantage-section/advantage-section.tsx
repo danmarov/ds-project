@@ -1,12 +1,16 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { CustomIcon } from "../ui/custom-icon";
+import { motion } from "framer-motion";
 
 interface AdvantageCardProps {
   variant?: "dark" | "light";
   icon: ReactNode;
   title: string;
   subtitle: string;
+  delay?: number;
 }
 
 const AdvantageCard = ({
@@ -14,10 +18,20 @@ const AdvantageCard = ({
   icon,
   subtitle,
   title,
+  delay = 0,
 }: AdvantageCardProps) => {
   const isDark = variant === "dark";
+
   return (
-    <div
+    <motion.div
+      initial={{ y: 50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 0.6,
+        delay: delay,
+        ease: "easeOut",
+      }}
       className={cn(
         "w-full flex-1 rounded-2xl p-6 pb-[16px] sm:rounded-4xl xl:h-[220px] xl:pb-0",
         isDark ? "bg-black" : "bg-[#F8F8F8]",
@@ -44,7 +58,7 @@ const AdvantageCard = ({
       >
         {subtitle}
       </p>
-    </div>
+    </motion.div>
   );
 };
 
@@ -57,10 +71,23 @@ export default function AdvantageSection() {
         </span>
         <div className="relative z-10">
           <div className="flex flex-col items-start justify-between xl:flex-row">
-            <h2 className="text-accent flex-nowrap text-[32px] font-semibold tracking-tight sm:text-[48px] md:text-[64px]">
+            <motion.h2
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-accent flex-nowrap text-[32px] font-semibold tracking-tight sm:text-[48px] md:text-[64px]"
+            >
               Наші переваги
-            </h2>
-            <div className="xl:translate-y-1/2">
+            </motion.h2>
+
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="xl:translate-y-1/2"
+            >
               <div className="font-body mt-4 leading-5 text-[#525252] sm:my-0 md:w-[70%] xl:w-[530px] xl:text-right">
                 Швидко, легально таі під ключ. Проводимо перекази будь-яких сум
                 з повним супроводом на кожному етапі — від KYC/AML і договору до
@@ -72,14 +99,16 @@ export default function AdvantageSection() {
                   <CustomIcon.ArrowLeft />
                 </span>
               </p>
-            </div>
+            </motion.div>
           </div>
+
           <div className="mt-[40px] flex flex-col items-center gap-4 md:mt-[140px] xl:flex-row">
             <AdvantageCard
               variant="dark"
               icon={<CustomIcon.Mark />}
               title="Швидко"
               subtitle="Процес переказу займає до 2-х тижнів."
+              delay={0}
             />
 
             <AdvantageCard
@@ -87,12 +116,15 @@ export default function AdvantageSection() {
               icon={<CustomIcon.Star />}
               title="Прозоро"
               subtitle="Фіксуємо усі комісії до переказу в договорі."
+              delay={0.1}
             />
+
             <AdvantageCard
               variant="light"
               icon={<CustomIcon.Key />}
               title="Під ключ"
               subtitle="Персональний менеджер cупроводжує процес на всіх етапах."
+              delay={0.2}
             />
           </div>
         </div>

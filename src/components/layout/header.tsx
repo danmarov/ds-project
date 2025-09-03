@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { AlignJustify, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface NavigationItem {
   title: string;
@@ -23,22 +23,22 @@ interface NavLinkProps {
 const navigationMenu: NavigationItem[] = [
   {
     title: "Процес",
-    href: "#process",
+    href: "/#process",
     isAnchor: true,
   },
   {
     title: "Тарифи",
-    href: "#pricing",
+    href: "/#pricing",
     isAnchor: true,
   },
   {
     title: "Кейси",
-    href: "#cases",
+    href: "/#cases",
     isAnchor: true,
   },
   {
     title: "Faq",
-    href: "#faq",
+    href: "/#faq",
     isAnchor: true,
   },
 ];
@@ -48,7 +48,7 @@ const blackHeaderPaths: string[] = ["/feedback"];
 
 // Функция для плавной прокрутки к элементу
 const scrollToElement = (elementId: string): void => {
-  const element = document.getElementById(elementId.replace("#", ""));
+  const element = document.getElementById(elementId.replace("/#", ""));
   if (element) {
     const headerHeight = 80; // Высота хедера
     const elementPosition =
@@ -99,7 +99,7 @@ const useHeaderTextColor = (): boolean => {
 
     // Наблюдаем за остальными секциями из навигации
     navigationMenu.forEach(({ href }) => {
-      const element = document.getElementById(href.replace("#", ""));
+      const element = document.getElementById(href.replace("/#", ""));
       if (element) {
         observer.observe(element);
       }
@@ -113,10 +113,20 @@ const useHeaderTextColor = (): boolean => {
 
 // Компонент для обработки ссылок
 const NavLink: React.FC<NavLinkProps> = ({ item, onClick, className }) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     if (item.isAnchor) {
       e.preventDefault();
-      scrollToElement(item.href);
+
+      if (pathname !== "/") {
+        // Переходим на главную с якорем
+        router.push(item.href);
+      } else {
+        // Плавная прокрутка на текущей странице
+        scrollToElement(item.href);
+      }
     }
     onClick?.();
   };
@@ -174,7 +184,9 @@ export default function Header() {
               // Логотип - синхронизируем transition с остальными элементами
               "transition-colors duration-300 ease-in-out",
               // Логотип всегда черный на мобильном меню или когда нужен черный текст
-              isMobileMenuOpen ? "text-black" : "lg:text-white",
+              isMobileMenuOpen || shouldBeBlack
+                ? "text-black"
+                : "lg:text-white",
             )}
           />
         </Link>
@@ -187,7 +199,7 @@ export default function Header() {
           <AlignJustify
             className={cn(
               "h-6 w-6 transition-colors duration-300 ease-in-out",
-              isMobileMenuOpen
+              isMobileMenuOpen || shouldBeBlack
                 ? "scale-0 rotate-90 text-black"
                 : "scale-100 rotate-0",
               // !isMobileMenuOpen && shouldTextBeBlack && "text-black",
@@ -220,6 +232,7 @@ export default function Header() {
                   variant={"outline"}
                   className={cn(
                     "gap-3 uppercase transition-colors duration-300 ease-in-out",
+                    shouldBeBlack ? "border-accent text-accent" : "",
                     // shouldTextBeBlack
                     //   ? "border-black text-black hover:bg-black hover:text-white"
                     //   : "border-white text-white hover:bg-white hover:text-black",

@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import Stepper from "../ui/stepper";
 import { CustomIcon } from "../ui/custom-icon";
 import Image from "next/image";
 import CarouselSlider from "./carousel";
+import { motion } from "framer-motion";
 
 const slides = [
   {
@@ -40,7 +43,6 @@ const slides = [
   {
     id: 5,
     cardImage: "/slide5-back.svg",
-
     cardImage2: "/slide5-front.svg",
     title: "Отримання коштів",
     description:
@@ -61,63 +63,57 @@ export default function ProcessSection() {
         />
         <div className="relative z-10">
           <div className="flex flex-col items-start justify-between lg:flex-row">
-            <h2 className="text-accent flex-nowrap text-[38px] leading-none font-semibold tracking-tight sm:text-[48px] md:text-[64px]">
+            <motion.h2
+              initial={{ x: -60, opacity: 0, rotateY: -15 }}
+              whileInView={{ x: 0, opacity: 1, rotateY: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                ease: [0.25, 0.4, 0.25, 1],
+                type: "spring",
+                damping: 12,
+              }}
+              className="text-accent flex-nowrap text-[38px] leading-none font-semibold tracking-tight sm:text-[48px] md:text-[64px]"
+            >
               Процесс <br className="hidden md:block" /> переказу
-            </h2>
-            <div className="">
+            </motion.h2>
+
+            <motion.div
+              initial={{ x: 50, opacity: 0, rotateY: 15 }}
+              whileInView={{ x: 0, opacity: 1, rotateY: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.1,
+                ease: [0.25, 0.4, 0.25, 1],
+                type: "spring",
+                damping: 12,
+              }}
+              className=""
+            >
               <div className="font-body mt-4 w-[70%] leading-5 text-[#525252] md:mt-[21px] md:w-[530px] xl:mt-[41px] xl:text-right">
                 Комісія від 2%. Фінальні умови — після KYC/AML та вибору
                 маршруту.
               </div>
-            </div>
+            </motion.div>
           </div>
-          <CarouselSlider
-            slides={slides}
-            autoPlay={true}
-            autoPlayDelay={5000}
-          />
-          {/* <div
-            className="bg-accent relative mx-[52px] mt-15 flex h-[748px] place-items-center items-center justify-between rounded-[64px] bg-cover bg-center"
-            style={{ backgroundImage: "url(/carousel-backdrop.svg" }}
+
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
           >
-            <div className="absolute top-[37px] left-[143px]">
-              <CustomIcon.Star2 />
-            </div>
-            <div className="absolute top-[77px] left-[236px]">
-              <CustomIcon.Star3 />
-            </div>
-            <>
-              <div className="absolute top-0 -translate-x-1/4 translate-y-1/6">
-                <div className="pointer-events-none relative w-fit">
-                  <div className="relative aspect-[3/4] w-[334px]">
-                    <Image src={"/Card.svg"} alt="" fill />
-                  </div>
-                  <div className="absolute top-0 aspect-[3/4] w-[334px] translate-x-1/2 translate-y-1/4">
-                    <Image src={"/Card-1.svg"} alt="" fill />
-                  </div>
-                </div>
-              </div>
-              <div className="relative w-full text-white">
-                <div className="relative z-10 ml-auto h-full w-[60%]">
-                  <p className="text-foreground text-[64px] leading-none font-semibold">
-                    KYC та AML перевірка
-                  </p>
-                  <p className="font-body text-secondary mt-6 max-w-[580px] text-base">
-                    KYC/AML зазвичай 1–2 дні: паспорт/ID, адреса та документи
-                    про походження коштів на суму обміну. Персональний менеджер
-                    допоможе з документами
-                  </p>
-                  <div className="mt-[107px] flex h-4 w-full items-center gap-1.5">
-                    <span className="h-1.5 w-[75px] rounded-sm bg-white" />
-                    <span className="bg-muted h-1.5 w-[50px] rounded-sm" />
-                    <span className="bg-muted h-1.5 w-[50px] rounded-sm" />
-                    <span className="bg-muted h-1.5 w-[50px] rounded-sm" />
-                    <span className="bg-muted h-1.5 w-[50px] rounded-sm" />
-                  </div>
-                </div>
-              </div>
-            </>
-          </div> */}
+            <CarouselSlider
+              slides={slides}
+              autoPlay={true}
+              autoPlayDelay={5000}
+            />
+          </motion.div>
         </div>
       </div>
     </section>
