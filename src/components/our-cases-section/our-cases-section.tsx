@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+"use client";
+import React, { ReactNode, useRef, useEffect, useState } from "react";
 import Stepper from "../ui/stepper";
 import { cn } from "@/lib/utils";
 
@@ -22,23 +23,21 @@ const CasesCard = ({
     <div
       className={cn(
         "grid flex-shrink-0 place-items-center rounded-[20px] md:rounded-[40px]",
-        // Адаптивная ширина и отступы
-        "w-full min-w-[280px] px-4 py-8", // мобильные
-        "sm:min-w-[320px] sm:px-6 sm:py-10", // малые планшеты
-        "md:w-fit md:min-w-[350px] md:px-8 md:py-12", // средние планшеты
-        "lg:min-w-[400px] lg:px-[59px] lg:py-[56px]", // десктоп (исходные значения)
+        "w-full min-w-[280px] px-4 py-8",
+        "sm:min-w-[320px] sm:px-6 sm:py-10",
+        "md:w-fit md:min-w-[350px] md:px-8 md:py-12",
+        "lg:min-w-[400px] lg:px-[59px] lg:py-[56px]",
         isDark ? "bg-black" : "bg-white",
       )}
     >
       <div className="space-y-3 md:space-y-4">
         <p
           className={cn(
-            // Адаптивные размеры текста
-            "text-4xl leading-tight", // мобильные
-            "sm:text-5xl sm:leading-tight", // малые планшеты
-            "md:text-6xl md:leading-tight", // средние планшеты
-            "lg:text-7xl lg:leading-[80px]", // большие экраны
-            "xl:text-[119px] xl:leading-[100px]", // десктоп (исходные значения)
+            "text-4xl leading-tight",
+            "sm:text-5xl sm:leading-tight",
+            "md:text-6xl md:leading-tight",
+            "lg:text-7xl lg:leading-[80px]",
+            "xl:text-[119px] xl:leading-[100px]",
             isDark ? "text-white" : "text-accent",
             gradientTitle && "gradient-text",
           )}
@@ -53,15 +52,84 @@ const CasesCard = ({
         <p
           className={cn(
             "font-body leading-5 md:text-center",
-            // Адаптивные размеры текста для subtitle
-            "text-sm", // мобильные
-            "sm:text-base", // малые планшеты
-            "lg:text-lg", // десктоп (исходный размер)
+            "text-sm",
+            "sm:text-base",
+            "lg:text-lg",
             isDark ? "text-white/80" : "text-accent/50",
           )}
         >
           {subtitle}
         </p>
+      </div>
+    </div>
+  );
+};
+
+// Простой автоскролл контейнер
+const AutoScrollContainer = ({
+  children,
+  className = "",
+  speed = 1,
+}: {
+  children: ReactNode;
+  className?: string;
+  speed?: number;
+}) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const startAutoScroll = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+
+      intervalRef.current = setInterval(() => {
+        if (!scrollRef.current || isPaused) return;
+
+        const container = scrollRef.current;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        if (container.scrollLeft >= maxScroll) {
+          container.scrollLeft = 0;
+        } else {
+          container.scrollLeft += speed;
+        }
+      }, 16); // ~60fps
+    };
+
+    if (!isPaused) {
+      startAutoScroll();
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPaused, speed]);
+
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        ref={scrollRef}
+        className={cn(
+          "scrollbar-hide flex items-center gap-6 overflow-x-auto overflow-y-hidden pb-3",
+          className,
+        )}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {children}
+        {children}
       </div>
     </div>
   );
@@ -88,15 +156,9 @@ export default function OurCasesSection() {
             </div>
           </div>
         </div>
-        <div className="mt-[60px] flex flex-nowrap gap-6 overflow-x-auto pb-3 md:mt-[100px]">
+        <div className="mt-[60px] md:mt-[100px]">
           <div className="container">
-            <div
-              className="scrollbar-custom flex items-center gap-6 overflow-x-auto pb-3"
-              style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "#000000 #e5e5e5",
-              }}
-            >
+            <AutoScrollContainer speed={2}>
               <CasesCard
                 variant="light"
                 preTitle="€"
@@ -131,7 +193,7 @@ export default function OurCasesSection() {
                   </>
                 }
               />
-            </div>
+            </AutoScrollContainer>
           </div>
         </div>
       </div>

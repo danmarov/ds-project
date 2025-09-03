@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+"use client";
+import React, { ReactNode, useRef, useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import Stepper from "../ui/stepper";
 import { cn } from "@/lib/utils";
@@ -61,6 +62,76 @@ const ReviewCard = ({
   );
 };
 
+// Автоскролл контейнер для отзывов
+const AutoScrollReviews = ({
+  children,
+  className = "",
+  speed = 1,
+}: {
+  children: ReactNode;
+  className?: string;
+  speed?: number;
+}) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const startAutoScroll = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+
+      intervalRef.current = setInterval(() => {
+        if (!scrollRef.current || isPaused) return;
+
+        const container = scrollRef.current;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        if (container.scrollLeft >= maxScroll) {
+          container.scrollLeft = 0;
+        } else {
+          container.scrollLeft += speed;
+        }
+      }, 16); // ~60fps
+    };
+
+    if (!isPaused) {
+      startAutoScroll();
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPaused, speed]);
+
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        ref={scrollRef}
+        className={cn(
+          "scrollbar-hide flex items-center gap-6 overflow-x-auto overflow-y-hidden pb-3",
+          className,
+        )}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {children}
+        {children}
+      </div>
+    </div>
+  );
+};
+
 export default function ReviewsSection() {
   return (
     <section className="relative overflow-hidden bg-white py-[60px] md:pt-[100px] md:pb-[120px]">
@@ -94,14 +165,7 @@ export default function ReviewsSection() {
         />
         <div className="text-accent relative z-10 pt-[120px] md:pt-[140px]">
           <div className="container">
-            {/* Контейнер со стилизованным скроллбаром */}
-            <div
-              className="scrollbar-custom flex items-center gap-6 overflow-x-auto pb-3"
-              style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "#000000 #e5e5e5",
-              }}
-            >
+            <AutoScrollReviews speed={1.5}>
               <ReviewCard
                 title="Купили квартиру"
                 from="И.О."
@@ -132,7 +196,7 @@ export default function ReviewsSection() {
                 subtitle="Laborum quasi distinctio est et. Sequi omnis molestiae. Officia occaecati voluptatem accusantium. Et corrupti saepe quam."
                 variant="light"
               />
-            </div>
+            </AutoScrollReviews>
           </div>
         </div>
       </div>

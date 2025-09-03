@@ -7,6 +7,7 @@ import DesktopDecoration from "./desktop-decoration";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { CONSTS } from "@/lib/consts";
 
 export default function HeroSection() {
   return (
@@ -54,12 +55,14 @@ export default function HeroSection() {
                   </span>
                 </Button>
               </Link>
-              <Button
-                className="w-full px-6 leading-relaxed md:w-fit"
-                variant={"outline"}
-              >
-                Звʼязатись напряму
-              </Button>
+              <Link href={CONSTS.direct_contact} className="w-full md:w-fit">
+                <Button
+                  className="w-full px-6 leading-relaxed md:w-fit"
+                  variant={"outline"}
+                >
+                  Звʼязатись напряму
+                </Button>
+              </Link>
             </div>
           </div>
           <motion.div

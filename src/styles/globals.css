@@ -54,54 +54,106 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .scrollbar-custom {
   /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #000000 #e5e5e5;
+
+  /* Принудительное отображение скроллбара */
+  overflow-x: scroll !important;
+  overflow-y: hidden;
 }
 
 /* WebKit browsers (Chrome, Safari, Edge) */
 .scrollbar-custom::-webkit-scrollbar {
   height: 8px;
   width: 8px;
+  -webkit-appearance: none;
+  /* Принудительное отображение */
+  display: block !important;
+}
+
+.scrollbar-custom::-webkit-scrollbar:horizontal {
+  height: 8px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
   background: #e5e5e5;
   border-radius: 4px;
+  /* Всегда показывать трек */
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
   background: #000000;
   border-radius: 4px;
+  /* Минимальная ширина thumb */
+  min-width: 20px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: #333333;
 }
 
-/* Принудительное отображение скроллбара */
-.scrollbar-custom::-webkit-scrollbar {
-  -webkit-appearance: none;
+/* Дополнительные стили для принудительного отображения */
+.scrollbar-custom::-webkit-scrollbar-corner {
+  background: #e5e5e5;
 }
 
+/* Убираем автоскрытие в WebKit */
+.scrollbar-custom {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Для macOS - отключаем автоскрытие системных скроллбаров */
+.scrollbar-custom::-webkit-scrollbar {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* OverlayScrollbars стили */
 .os-scrollbar-horizontal {
   height: 8px !important;
   bottom: 0px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .os-scrollbar-horizontal .os-scrollbar-track {
   background: #e5e5e5 !important;
   border-radius: 4px !important;
+  opacity: 1 !important;
 }
 
 .os-scrollbar-horizontal .os-scrollbar-handle {
   background: #000000 !important;
   border-radius: 4px !important;
   min-width: 20px !important;
+  opacity: 1 !important;
 }
 
 .os-scrollbar-horizontal .os-scrollbar-handle:hover {
   background: #333333 !important;
+}
+
+/* Дополнительный класс для гарантированного отображения */
+.force-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #000000 #e5e5e5 !important;
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+  .scrollbar-custom::-webkit-scrollbar {
+    height: 6px;
+  }
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

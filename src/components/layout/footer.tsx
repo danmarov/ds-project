@@ -5,6 +5,7 @@ import { CustomIcon } from "../ui/custom-icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { CONSTS } from "@/lib/consts";
 
 const SocialBackdrop = ({ children }: PropsWithChildren) => {
   return (
@@ -77,12 +78,14 @@ export default function Footer() {
                 </Button>
               </Link>
 
-              <Button
-                className="w-full px-6 leading-relaxed md:w-fit"
-                variant={"outline"}
-              >
-                Звʼязатись напряму
-              </Button>
+              <Link href={CONSTS.direct_contact} className="w-full md:w-fit">
+                <Button
+                  className="w-full px-6 leading-relaxed md:w-fit"
+                  variant={"outline"}
+                >
+                  Звʼязатись напряму
+                </Button>
+              </Link>
             </div>
           </div>
         )}
@@ -100,19 +103,19 @@ export default function Footer() {
                 <SocialBackdrop>
                   <CustomIcon.Whatsapp />
                 </SocialBackdrop>
-                <span className="text-sm sm:text-base">+33 333 333 33 33</span>
+                <span className="text-sm sm:text-base">{CONSTS.whatsapp}</span>
               </li>
               <li className="flex w-full items-center justify-center gap-[14px] sm:w-auto xl:justify-start">
                 <SocialBackdrop>
                   <CustomIcon.Telegram />
                 </SocialBackdrop>
-                <span className="text-sm sm:text-base">+33 333 333 33 33</span>
+                <span className="text-sm sm:text-base">{CONSTS.telegram}</span>
               </li>
               <li className="flex w-full items-center justify-center gap-[14px] sm:w-auto xl:justify-start">
                 <SocialBackdrop>
                   <CustomIcon.SocialMessage />
                 </SocialBackdrop>
-                <span className="text-sm sm:text-base">+33 333 333 33 33</span>
+                <span className="text-sm sm:text-base">{CONSTS.signal}</span>
               </li>
             </ul>
           </div>
