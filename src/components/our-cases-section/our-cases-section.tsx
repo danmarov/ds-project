@@ -65,11 +65,10 @@ const CasesCard = ({
   );
 };
 
-// Автоскролл с простой обработкой тач-событий
 const AutoScrollContainer = ({
   children,
   className = "",
-  speed = 0.8,
+  speed = 1,
 }: {
   children: ReactNode;
   className?: string;
@@ -79,6 +78,7 @@ const AutoScrollContainer = ({
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const accumulatedScrollRef = useRef<number>(0); // Накапливаем дробную часть
 
   useEffect(() => {
     const startAutoScroll = () => {
@@ -92,8 +92,17 @@ const AutoScrollContainer = ({
 
         if (container.scrollLeft >= maxScroll) {
           container.scrollLeft = 0;
+          accumulatedScrollRef.current = 0;
         } else {
-          container.scrollLeft += speed;
+          // Накапливаем дробную часть
+          accumulatedScrollRef.current += speed;
+
+          // Применяем только когда накопится хотя бы 1 пиксель
+          if (accumulatedScrollRef.current >= 1) {
+            const pixelsToScroll = Math.floor(accumulatedScrollRef.current);
+            container.scrollLeft += pixelsToScroll;
+            accumulatedScrollRef.current -= pixelsToScroll;
+          }
         }
       }, 16);
     };
@@ -109,7 +118,6 @@ const AutoScrollContainer = ({
     };
   }, [isPaused, speed]);
 
-  // Функция для временной паузы
   const pauseTemporarily = (duration = 1000) => {
     setIsPaused(true);
     if (pauseTimeoutRef.current) {
@@ -120,11 +128,8 @@ const AutoScrollContainer = ({
     }, duration);
   };
 
-  // Обработчики событий
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
-
-  // Универсальные обработчики для мобилок
   const handleTouchStart = () => pauseTemporarily(1000);
   const handleTouchMove = () => pauseTemporarily(1000);
 
@@ -161,7 +166,6 @@ const AutoScrollContainer = ({
     </div>
   );
 };
-
 export default function OurCasesSection() {
   return (
     <section className="relative bg-[#F8F8F8]" id="cases">
