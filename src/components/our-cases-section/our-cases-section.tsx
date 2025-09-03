@@ -1,9 +1,6 @@
-"use client";
-
 import React, { ReactNode } from "react";
 import Stepper from "../ui/stepper";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface CasesCardProps {
   preTitle?: string;
@@ -11,7 +8,6 @@ interface CasesCardProps {
   gradientTitle?: boolean;
   variant: "dark" | "light";
   subtitle: string | ReactNode;
-  delay?: number;
 }
 
 const CasesCard = ({
@@ -20,22 +16,12 @@ const CasesCard = ({
   title,
   variant = "light",
   subtitle,
-  delay = 0,
 }: CasesCardProps) => {
   const isDark = variant === "dark";
-
   return (
-    <motion.div
-      initial={{ y: 50, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.4,
-        delay: delay,
-        ease: "easeOut",
-      }}
+    <div
       className={cn(
-        "grid flex-shrink-0 cursor-pointer place-items-center rounded-[20px] md:rounded-[40px]",
+        "grid flex-shrink-0 place-items-center rounded-[20px] md:rounded-[40px]",
         // Адаптивная ширина и отступы
         "w-full min-w-[280px] px-4 py-8", // мобильные
         "sm:min-w-[320px] sm:px-6 sm:py-10", // малые планшеты
@@ -64,7 +50,6 @@ const CasesCard = ({
           )}
           {title}
         </p>
-
         <p
           className={cn(
             "font-body leading-5 md:text-center",
@@ -78,7 +63,7 @@ const CasesCard = ({
           {subtitle}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -92,53 +77,18 @@ export default function OurCasesSection() {
         />
         <div className="relative z-10">
           <div className="flex flex-col items-start justify-between xl:flex-row">
-            <motion.h2
-              initial={{ x: -80, opacity: 0, rotateY: -20 }}
-              whileInView={{ x: 0, opacity: 1, rotateY: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.7,
-                ease: [0.25, 0.4, 0.25, 1],
-                type: "spring",
-                damping: 12,
-              }}
-              className="text-accent 490:text-[38px] flex-nowrap text-[32px] leading-none font-semibold tracking-tight sm:text-[48px] md:text-[64px]"
-            >
+            <h2 className="text-accent 490:text-[38px] flex-nowrap text-[32px] leading-none font-semibold tracking-tight sm:text-[48px] md:text-[64px]">
               Приклади наших успішних кейсів
-            </motion.h2>
-
-            <motion.div
-              initial={{ x: 70, opacity: 0, rotateY: 20 }}
-              whileInView={{ x: 0, opacity: 1, rotateY: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.15,
-                ease: [0.25, 0.4, 0.25, 1],
-                type: "spring",
-                damping: 12,
-              }}
-              className=""
-            >
+            </h2>
+            <div className="">
               <div className="font-body mt-6 leading-5 text-[#525252] md:w-[530px] xl:mt-[41px] xl:text-right">
                 Реальні суми, кейси та строки. Дані частково анонімізовано;
                 фінальні умови — після KYC/AML.
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-
-        <motion.div
-          initial={{ y: 60, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{
-            duration: 0.6,
-            delay: 0.3,
-            ease: [0.25, 0.4, 0.25, 1],
-          }}
-          className="mt-[60px] flex flex-nowrap gap-6 overflow-x-auto pb-3 md:mt-[100px]"
-        >
+        <div className="mt-[60px] flex flex-nowrap gap-6 overflow-x-auto pb-3 md:mt-[100px]">
           <div className="container">
             <div
               className="scrollbar-custom flex items-center gap-6 overflow-x-auto pb-3"
@@ -157,7 +107,6 @@ export default function OurCasesSection() {
                     · Поступление: Deutsche Bank
                   </>
                 }
-                delay={0}
               />
               <CasesCard
                 gradientTitle
@@ -170,7 +119,6 @@ export default function OurCasesSection() {
                     · Поступление: Deutsche Bank
                   </>
                 }
-                delay={0.12}
               />
               <CasesCard
                 variant="light"
@@ -182,11 +130,10 @@ export default function OurCasesSection() {
                     · Поступление: Deutsche Bank
                   </>
                 }
-                delay={0.24}
               />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
