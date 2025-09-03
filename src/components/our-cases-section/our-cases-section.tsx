@@ -65,11 +65,11 @@ const CasesCard = ({
   );
 };
 
-// Простой автоскролл контейнер
+// Автоскролл с простой обработкой тач-событий
 const AutoScrollContainer = ({
   children,
   className = "",
-  speed = 1,
+  speed = 0.8,
 }: {
   children: ReactNode;
   className?: string;
@@ -78,6 +78,7 @@ const AutoScrollContainer = ({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const startAutoScroll = () => {
@@ -94,7 +95,7 @@ const AutoScrollContainer = ({
         } else {
           container.scrollLeft += speed;
         }
-      }, 16); // ~60fps
+      }, 16);
     };
 
     if (!isPaused) {
@@ -108,8 +109,32 @@ const AutoScrollContainer = ({
     };
   }, [isPaused, speed]);
 
+  // Функция для временной паузы
+  const pauseTemporarily = (duration = 1000) => {
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, duration);
+  };
+
+  // Обработчики событий
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
+
+  // Универсальные обработчики для мобилок
+  const handleTouchStart = () => pauseTemporarily(1000);
+  const handleTouchMove = () => pauseTemporarily(1000);
+
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -127,6 +152,8 @@ const AutoScrollContainer = ({
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
       >
         {children}
         {children}
@@ -158,7 +185,7 @@ export default function OurCasesSection() {
         </div>
         <div className="mt-[60px] md:mt-[100px]">
           <div className="container">
-            <AutoScrollContainer speed={2}>
+            <AutoScrollContainer speed={0.8}>
               <CasesCard
                 variant="light"
                 preTitle="€"

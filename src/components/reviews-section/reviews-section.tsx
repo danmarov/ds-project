@@ -75,6 +75,7 @@ const AutoScrollReviews = ({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const startAutoScroll = () => {
@@ -91,7 +92,7 @@ const AutoScrollReviews = ({
         } else {
           container.scrollLeft += speed;
         }
-      }, 16); // ~60fps
+      }, 16);
     };
 
     if (!isPaused) {
@@ -105,8 +106,32 @@ const AutoScrollReviews = ({
     };
   }, [isPaused, speed]);
 
+  // Функция для временной паузы
+  const pauseTemporarily = (duration = 1000) => {
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, duration);
+  };
+
+  // Обработчики событий
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
+
+  // Универсальные обработчики для мобилок
+  const handleTouchStart = () => pauseTemporarily(1000);
+  const handleTouchMove = () => pauseTemporarily(1000);
+
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -124,6 +149,8 @@ const AutoScrollReviews = ({
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
       >
         {children}
         {children}
@@ -131,7 +158,6 @@ const AutoScrollReviews = ({
     </div>
   );
 };
-
 export default function ReviewsSection() {
   return (
     <section className="relative overflow-hidden bg-white py-[60px] md:pt-[100px] md:pb-[120px]">
