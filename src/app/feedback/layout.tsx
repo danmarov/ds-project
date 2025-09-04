@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DS PARTNERS | Связаться с нами",
+  title: "DS PARTNERS | Зв'язатися з нами",
   description:
-    "Оставьте заявку на международный перевод. Связь через WhatsApp, Telegram, Signal. Профессиональная консультация по переводам от €100K.",
+    "Залишіть заявку на міжнародний переклад. Зв'язок через WhatsApp, Telegram, Signal. Професійна консультація щодо перекладів від €100K.",
 };
 
 export default function FeedbackLayout({

@@ -39,12 +39,6 @@ const bricolage = Bricolage_Grotesque({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
-  title: "DS PARTNERS | Международные переводы",
-  description:
-    "Крупные международные переводы от €100K. Инвестиции в недвижимость и бизнес. Проверенные кейсы, прозрачные условия.",
-};
-
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">

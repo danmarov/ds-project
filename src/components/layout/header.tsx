@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CustomIcon } from "../ui/custom-icon";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -60,50 +60,6 @@ const scrollToElement = (elementId: string): void => {
   }
 };
 
-const useHeaderTextColor = (): boolean => {
-  const [shouldTextBeWhite, setShouldTextBeWhite] = useState<boolean>(true);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.target.id === "hero" && entry.isIntersecting) {
-            setShouldTextBeWhite(true);
-          } else if (entry.target.id === "footer" && entry.isIntersecting) {
-            setShouldTextBeWhite(true);
-          } else if (entry.isIntersecting) {
-            setShouldTextBeWhite(false);
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      },
-    );
-
-    const heroElement = document.getElementById("hero");
-    const footerElement = document.getElementById("footer");
-
-    if (heroElement) {
-      observer.observe(heroElement);
-    }
-    if (footerElement) {
-      observer.observe(footerElement);
-    }
-
-    navigationMenu.forEach(({ href }) => {
-      const element = document.getElementById(href.replace("/#", ""));
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return shouldTextBeWhite;
-};
-
 const NavLink: React.FC<NavLinkProps> = ({ item, onClick, className }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -139,7 +95,6 @@ const NavLink: React.FC<NavLinkProps> = ({ item, onClick, className }) => {
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
-  const shouldTextBeWhite = useHeaderTextColor();
 
   const shouldBeBlack: boolean = blackHeaderPaths.includes(pathname);
 

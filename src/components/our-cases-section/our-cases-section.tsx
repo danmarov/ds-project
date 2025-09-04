@@ -21,7 +21,7 @@ const CasesCard = ({
 }: CasesCardProps) => {
   const isDark = variant === "dark";
   return (
-    <div
+    <article
       className={cn(
         "grid flex-shrink-0 place-items-center rounded-[20px] md:rounded-[40px]",
         "w-full min-w-[280px] px-4 py-8",
@@ -32,7 +32,7 @@ const CasesCard = ({
       )}
     >
       <div className="space-y-3 md:space-y-4">
-        <p
+        <h3
           className={cn(
             "text-4xl leading-tight",
             "sm:text-5xl sm:leading-tight",
@@ -49,7 +49,7 @@ const CasesCard = ({
             </span>
           )}
           {title}
-        </p>
+        </h3>
         <p
           className={cn(
             "font-manrope leading-5 font-medium md:text-center",
@@ -62,7 +62,7 @@ const CasesCard = ({
           {subtitle}
         </p>
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -93,11 +93,11 @@ export default function OurCasesSection() {
               <CasesCard
                 variant="light"
                 preTitle="€"
-                title="100,000"
+                title="325.000"
                 subtitle={
                   <>
-                    Перевод из Германии · T+3 · Цель: инвестиции <br /> в бизнес
-                    · Поступление: Deutsche Bank
+                    Переказ до Іспанії · Строк: 11 днів · Ціль: Купівля <br />
+                    нерухомості · Зарахування: Bank Millennium
                   </>
                 }
               />
@@ -105,11 +105,11 @@ export default function OurCasesSection() {
                 gradientTitle
                 variant="dark"
                 preTitle="€"
-                title="450,000"
+                title="500.000"
                 subtitle={
                   <>
-                    Перевод из Германии · T+3 · Цель: инвестиции <br /> в бизнес
-                    · Поступление: Deutsche Bank
+                    Переказ до Чехії · Строк: 9 днів · Ціль: Внесення <br />
+                    уставного капіталу · Зарахування: Raiffeisenbank
                   </>
                 }
               />
@@ -119,8 +119,8 @@ export default function OurCasesSection() {
                 title="100,000"
                 subtitle={
                   <>
-                    Перевод из Германии · T+3 · Цель: инвестиции <br /> в бизнес
-                    · Поступление: Deutsche Bank
+                    Переказ до Польщі · Строк: 9 днів · Ціль: Транзит
+                    <br /> капіталу · Зарахування: Bank Pekao
                   </>
                 }
               />

@@ -59,11 +59,11 @@ export default function Footer() {
       >
         {!shouldBeShort && (
           <div className="">
-            <h1 className="text-2xl font-medium uppercase sm:text-2xl md:text-2xl md:leading-none lg:text-7xl xl:text-[84px]">
+            <h2 className="text-2xl font-medium uppercase sm:text-2xl md:text-2xl md:leading-none lg:text-7xl xl:text-[84px]">
               Легальний шлях Переказу{" "}
               <br className="hidden sm:block md:hidden" />
               коштів закордон
-            </h1>
+            </h2>
 
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row">
               <Link href={"/feedback"} className="w-full md:w-fit">
@@ -90,14 +90,11 @@ export default function Footer() {
           </div>
         )}
         <div className={cn("", shouldBeShort ? "" : "mt-[60px] xl:mt-0")}>
-          {/* Верхняя секция с логотипом и контактами */}
           <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:gap-0">
-            {/* Логотип */}
             <Link href={"/"} className="flex justify-center xl:justify-start">
               <CustomIcon.Logo />
             </Link>
 
-            {/* Контакты */}
             <ul className="font-manrope flex flex-col items-center justify-center gap-4 font-medium text-white sm:flex-row xl:ml-auto xl:flex-row xl:gap-5">
               <li className="flex w-full items-center justify-center gap-[14px] sm:w-auto xl:justify-start">
                 <SocialBackdrop>
@@ -120,9 +117,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Нижняя секция с юридической информацией */}
           <div className="font-manrope mt-8 font-medium xl:mt-15">
-            {/* Мобильная версия - стек */}
             <div className="flex flex-col gap-4 text-center text-[#F8F8F8] xl:hidden">
               <div className="text-base">
                 @{new Date().getFullYear()} D&S Partners All Rights Reserved
@@ -137,7 +132,6 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Десктопная версия - оригинальная разметка */}
             <ul className="hidden items-center text-lg text-[#F8F8F8] xl:flex">
               <li className="flex-1 cursor-pointer transition-colors hover:text-white">
                 Terms & Agreements

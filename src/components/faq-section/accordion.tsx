@@ -39,10 +39,12 @@ const Accordion: React.FC<AccordionProps> = ({
       {items.map((item, index) => (
         <div key={index} className="border-b-2 border-black pb-4 md:pb-6">
           <button
-            className="flex w-full cursor-pointer items-center justify-between text-xl leading-normal font-medium text-[#050505] md:text-3xl"
+            className="flex w-full cursor-pointer items-center justify-between text-left"
             onClick={() => toggleItem(index)}
           >
-            {item.title}
+            <h3 className="text-xl leading-normal font-medium text-[#050505] md:text-3xl">
+              {item.title}
+            </h3>
             <motion.span
               animate={{ rotate: openIndex === index ? 180 : 0 }}
               transition={{ duration: 0.3 }}

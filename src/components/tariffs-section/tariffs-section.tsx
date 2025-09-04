@@ -47,7 +47,7 @@ const TariffsCard = ({
       )}
     >
       <div className="space-y-3 md:space-y-4">
-        <motion.p
+        <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: delay + 0.1 }}
@@ -67,7 +67,7 @@ const TariffsCard = ({
             </span>
           )}
           {title}
-        </motion.p>
+        </motion.h3>
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export default function TariffsSection() {
           className="-top-[40px] left-full -translate-x-full text-[180px] md:left-0 md:-translate-x-1/3 md:text-[380px] xl:-top-[60px]"
         />
         <div className="relative z-10">
-          <motion.h3
+          <motion.h2
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -105,7 +105,7 @@ export default function TariffsSection() {
             className="text-accent 1315:text-[113px] flex-nowrap text-[30px] leading-none font-semibold tracking-tight sm:text-[50px] md:text-[60px] lg:text-[90px]"
           >
             Тарифи та строки
-          </motion.h3>
+          </motion.h2>
 
           <div className="mt-[30px] flex flex-col-reverse items-start justify-between md:mt-[140px] xl:mt-[80px] xl:flex-row">
             <motion.div
@@ -116,11 +116,9 @@ export default function TariffsSection() {
               className="mt-1.5 xl:mt-0 xl:translate-y-1/2"
             >
               <div className="font-manrope w-full text-left text-sm leading-5 font-semibold text-[#525252] md:w-[70%] md:text-base md:leading-5 xl:w-[530px]">
-                Lorem ipsum dolor sit amet consectetur. Vitae euismod nulla erat
-                morbi amet duis mattis. Ut neque facilisis etiam dolor mauris
-                leo nisl. Sed dictum a eget vestibulum vel vitae et enim turpis.
-                Nunc facilisi sed dignissim purus erat adipiscing adipiscing
-                pellentesque.
+                Повідомте суму та країну — підберемо оптимальний маршрут. Ви
+                заздалегідь бачите чисту суму на рахунку, а комісія прозора й
+                зафіксована. Переказ займає до двох тижнів.
               </div>
               <motion.div whileHover={{ x: 5, transition: { duration: 0.2 } }}>
                 <Link
@@ -143,7 +141,7 @@ export default function TariffsSection() {
               </motion.div>
             </motion.div>
 
-            <motion.h2
+            <motion.h3
               initial={{ x: 50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -151,7 +149,7 @@ export default function TariffsSection() {
               className="text-accent flex-nowrap text-[21px] leading-none font-semibold tracking-tight sm:text-[28px] lg:text-[48px] xl:text-right xl:text-[64px]"
             >
               Дізайтесь найголовніше
-            </motion.h2>
+            </motion.h3>
           </div>
 
           {/* Измененный контейнер для карточек */}
@@ -180,7 +178,7 @@ export default function TariffsSection() {
               />
             </div>
             {/* Планшеты и десктоп - горизонтальный скролл */}
-            <div className="mg:mx-5 mx-0.5 hidden flex-nowrap gap-4 overflow-x-auto text-black md:flex lg:gap-6">
+            <div className="mx-0.5 hidden flex-nowrap gap-4 overflow-x-auto text-black md:mx-5 md:flex lg:gap-6">
               <TariffsCard
                 gradientTitle
                 variant="dark"

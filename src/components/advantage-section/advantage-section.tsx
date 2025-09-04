@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { CustomIcon } from "../ui/custom-icon";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface AdvantageCardProps {
   variant?: "dark" | "light";
@@ -38,17 +39,21 @@ const AdvantageCard = ({
       )}
     >
       <div className="flex items-center gap-4 sm:gap-6">
-        <span className="grid h-[55px] w-[65px] place-items-center rounded-2xl bg-[#F1F1F1] md:h-[75px] md:w-[85px]">
+        <span
+          className="grid h-[55px] w-[65px] place-items-center rounded-2xl bg-[#F1F1F1] md:h-[75px] md:w-[85px]"
+          role="img"
+          aria-label={`Іконка ${title.toLowerCase()}`}
+        >
           {icon}
         </span>
-        <span
+        <h3
           className={cn(
             "text-[32px] sm:text-[40px]",
             isDark ? "text-white" : "text-accent",
           )}
         >
           {title}
-        </span>
+        </h3>
       </div>
       <p
         className={cn(
@@ -89,16 +94,19 @@ export default function AdvantageSection() {
               className="xl:translate-y-1/2"
             >
               <div className="font-manrope mt-4 leading-5 font-semibold text-[#525252] sm:my-0 md:w-[70%] xl:w-[530px] xl:text-right">
-                Швидко, легально таі під ключ. Проводимо перекази будь-яких сум
-                з повним супроводом на кожному етапі — від KYC/AML і договору до
+                Швидко, легально та під ключ. Проводимо перекази будь-яких сум з
+                повним супроводом на кожному етапі — від KYC/AML і договору до
                 конвертації та зарахування коштів.
               </div>
-              <p className="xl:text-righ text-accent mt-2 flex w-fit items-center gap-2 font-sans text-sm font-medium sm:gap-6 sm:text-lg xl:mt-0 xl:ml-auto">
+              <Link
+                href={"/#pricing"}
+                className="text-accent mt-2 flex w-fit items-center gap-2 font-sans text-sm font-medium sm:gap-6 sm:text-lg xl:mt-0 xl:ml-auto xl:text-right"
+              >
                 Детальніше про строки та комісії
                 <span className="scale-70 sm:scale-100">
                   <CustomIcon.ArrowLeft />
                 </span>
-              </p>
+              </Link>
             </motion.div>
           </div>
 
@@ -123,7 +131,7 @@ export default function AdvantageSection() {
               variant="light"
               icon={<CustomIcon.Key />}
               title="Під ключ"
-              subtitle="Персональний менеджер cупроводжує процес на всіх етапах."
+              subtitle="Персональний менеджер супроводжує процес на всіх етапах."
               delay={0.2}
             />
           </div>

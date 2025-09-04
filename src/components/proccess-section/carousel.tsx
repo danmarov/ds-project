@@ -89,7 +89,11 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
             <div className="absolute top-0 left-full -translate-x-[130%] -translate-y-[35%] md:-translate-y-1/3 xl:left-0 xl:-translate-x-1/6 xl:translate-y-1/6">
               <div className="pointer-events-none relative w-fit">
                 <div className="350:w-[100px] relative aspect-[3/4] w-[60px] sm:w-[150px] lg:w-[200px] xl:w-[334px]">
-                  <Image src={slide.cardImage} alt="" fill />
+                  <Image
+                    src={slide.cardImage}
+                    fill
+                    alt={`Ілюстрація етапу: ${slide.title}`}
+                  />
                 </div>
                 <div className="350:w-[100px] absolute top-0 aspect-[3/4] w-[60px] translate-x-1/2 translate-y-1/4 sm:w-[150px] lg:w-[200px] xl:w-[334px]">
                   <Image src={slide.cardImage2} alt="" fill />
@@ -100,9 +104,9 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
             {/* Контент слайда */}
             <div className="relative w-full text-white sm:ml-6 md:ml-[60px] xl:ml-0">
               <div className="relative z-10 h-full w-fit px-3 sm:w-[80%] md:w-[60%] md:px-0 xl:ml-auto">
-                <p className="text-foreground 350:text-[28px] text-[21px] leading-none font-medium md:text-[48px] lg:text-[64px]">
+                <h3 className="text-foreground 350:text-[28px] text-[21px] leading-none font-medium md:text-[48px] lg:text-[64px]">
                   {slide.title}
-                </p>
+                </h3>
                 <p className="font-manrope text-secondary mt-3 w-fit text-xs font-medium sm:text-sm md:mt-6 md:max-w-[580px] md:text-base">
                   {slide.description}
                 </p>
@@ -113,11 +117,15 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
       </div>
 
       {/* Индикаторы */}
-      <div className="absolute right-[6%] bottom-[6%] flex h-2 items-center gap-1.5 sm:right-[52px] sm:bottom-[50px] md:h-4">
+      <nav
+        aria-label="Навігація по слайдам"
+        className="absolute right-[6%] bottom-[6%] flex h-2 items-center gap-1.5 sm:right-[52px] sm:bottom-[50px] md:h-4"
+      >
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => handleIndicatorClick(index)}
+            aria-label={`Перейти до слайду ${index + 1}: ${slides[index].title}`}
             className={`rounded-sm transition-all duration-300 ${
               index === currentSlide
                 ? "h-1.5 w-[55px] bg-white sm:w-[75px]"
@@ -125,7 +133,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
             }`}
           />
         ))}
-      </div>
+      </nav>
     </div>
   );
 };

@@ -17,7 +17,7 @@ export default function HeroSection() {
     >
       <Image
         src="/hero-background.png"
-        alt="Hero background"
+        alt=""
         fill
         className="object-cover object-center"
         priority
