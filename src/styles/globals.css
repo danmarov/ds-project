@@ -16,6 +16,9 @@
   --breakpoint-1430: 1430px;
   --font-sans: var(--font-unbounded);
   --font-body: var(--font-archivo);
+  --font-manrope: var(--font-manrope);
+  --font-inter: var(--font-inter);
+
   --font-display: var(--font-display);
   --Grad2323: background: linear-gradient(
       90deg,

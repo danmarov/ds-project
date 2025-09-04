@@ -80,7 +80,7 @@ const Accordion: React.FC<AccordionProps> = ({
               ref={(el) => {
                 contentRefs.current[index] = el;
               }}
-              className="font-body pt-4 text-base leading-none text-[#868686] md:pt-6 md:text-xl"
+              className="font-manrope pt-4 text-base leading-none font-medium text-[#868686] md:pt-6 md:text-xl"
             >
               {item.content}
             </div>

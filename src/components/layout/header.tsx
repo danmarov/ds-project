@@ -43,14 +43,12 @@ const navigationMenu: NavigationItem[] = [
   },
 ];
 
-// Массив путей, где шапка должна быть черной изначально
 const blackHeaderPaths: string[] = ["/feedback"];
 
-// Функция для плавной прокрутки к элементу
 const scrollToElement = (elementId: string): void => {
   const element = document.getElementById(elementId.replace("/#", ""));
   if (element) {
-    const headerHeight = 80; // Высота хедера
+    const headerHeight = 80;
     const elementPosition =
       element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - headerHeight;
@@ -62,7 +60,6 @@ const scrollToElement = (elementId: string): void => {
   }
 };
 
-// Хук для отслеживания активной секции (определяем, находимся ли мы в hero или footer)
 const useHeaderTextColor = (): boolean => {
   const [shouldTextBeWhite, setShouldTextBeWhite] = useState<boolean>(true);
 
@@ -75,18 +72,15 @@ const useHeaderTextColor = (): boolean => {
           } else if (entry.target.id === "footer" && entry.isIntersecting) {
             setShouldTextBeWhite(true);
           } else if (entry.isIntersecting) {
-            // Если любая другая секция активна
             setShouldTextBeWhite(false);
           }
         });
       },
       {
-        threshold: 0.3, // Секция считается активной когда видна на 30%
-        // rootMargin: "-80px 0px 0px 0px", // Учитываем высоту хедера
+        threshold: 0.3,
       },
     );
 
-    // Наблюдаем за hero, footer и всеми остальными секциями
     const heroElement = document.getElementById("hero");
     const footerElement = document.getElementById("footer");
 
@@ -97,7 +91,6 @@ const useHeaderTextColor = (): boolean => {
       observer.observe(footerElement);
     }
 
-    // Наблюдаем за остальными секциями из навигации
     navigationMenu.forEach(({ href }) => {
       const element = document.getElementById(href.replace("/#", ""));
       if (element) {
@@ -111,7 +104,6 @@ const useHeaderTextColor = (): boolean => {
   return shouldTextBeWhite;
 };
 
-// Компонент для обработки ссылок
 const NavLink: React.FC<NavLinkProps> = ({ item, onClick, className }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -121,10 +113,8 @@ const NavLink: React.FC<NavLinkProps> = ({ item, onClick, className }) => {
       e.preventDefault();
 
       if (pathname !== "/") {
-        // Переходим на главную с якорем
         router.push(item.href);
       } else {
-        // Плавная прокрутка на текущей странице
         scrollToElement(item.href);
       }
     }
@@ -151,11 +141,7 @@ export default function Header() {
   const pathname = usePathname();
   const shouldTextBeWhite = useHeaderTextColor();
 
-  // Проверяем, должна ли шапка быть черной на текущей странице
   const shouldBeBlack: boolean = blackHeaderPaths.includes(pathname);
-
-  // Определяем, должен ли текст быть черным (акцентным)
-  // const shouldTextBeBlack: boolean = shouldBeBlack || !shouldTextBeWhite;
 
   const toggleMobileMenu = (): void => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -168,22 +154,22 @@ export default function Header() {
   return (
     <>
       <header
+        suppressHydrationWarning
         className={cn(
           "absolute top-0 right-0 left-0 z-30 mx-auto flex max-w-[1344px] items-center justify-between bg-transparent px-4 pt-6 pb-6",
-          // Мобильное меню всегда черное
+
           isMobileMenuOpen && "text-black lg:bg-transparent",
-          // Динамический цвет текста на десктопе - УБРАЛ transition-all отсюда
+
           shouldBeBlack && !isMobileMenuOpen && "text-black",
-          // !shouldTextBeBlack && !isMobileMenuOpen && "lg:text-white",
         )}
       >
         <Link href={"/"}>
           <CustomIcon.Logo
             className={cn(
               "w-[220px] xl:h-[29px] xl:w-[244px]",
-              // Логотип - синхронизируем transition с остальными элементами
+
               "transition-colors duration-300 ease-in-out",
-              // Логотип всегда черный на мобильном меню или когда нужен черный текст
+
               isMobileMenuOpen || shouldBeBlack
                 ? "text-black"
                 : "lg:text-white",
@@ -199,19 +185,17 @@ export default function Header() {
           <AlignJustify
             className={cn(
               "h-6 w-6 transition-colors duration-300 ease-in-out",
-              isMobileMenuOpen || shouldBeBlack
-                ? "scale-0 rotate-90 text-black"
-                : "scale-100 rotate-0",
-              // !isMobileMenuOpen && shouldTextBeBlack && "text-black",
-              // !isMobileMenuOpen && !shouldTextBeBlack && "lg:text-white",
+
+              // Исправленная логика: если страница должна быть черной ИЛИ меню открыто - черный цвет
+              shouldBeBlack || isMobileMenuOpen ? "text-black" : "text-white",
+
+              isMobileMenuOpen ? "scale-0 rotate-90" : "scale-100 rotate-0",
             )}
           />
           <X
             className={cn(
-              "absolute top-1.5 left-1.5 h-6 w-6 transition-colors duration-300 ease-in-out",
-              isMobileMenuOpen
-                ? "scale-100 rotate-0 text-black"
-                : "scale-0 -rotate-90",
+              "absolute top-1.5 left-1.5 h-6 w-6 text-black transition-colors duration-300 ease-in-out",
+              isMobileMenuOpen ? "scale-100 rotate-0" : "scale-0 -rotate-90",
             )}
           />
         </button>
@@ -233,9 +217,6 @@ export default function Header() {
                   className={cn(
                     "gap-3 uppercase transition-colors duration-300 ease-in-out",
                     shouldBeBlack ? "border-accent text-accent" : "",
-                    // shouldTextBeBlack
-                    //   ? "border-black text-black hover:bg-black hover:text-white"
-                    //   : "border-white text-white hover:bg-white hover:text-black",
                   )}
                 >
                   <CustomIcon.Menu />

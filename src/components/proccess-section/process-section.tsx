@@ -91,7 +91,7 @@ export default function ProcessSection() {
               }}
               className=""
             >
-              <div className="font-body mt-4 w-[70%] leading-5 text-[#525252] md:mt-[21px] md:w-[530px] xl:mt-[41px] xl:text-right">
+              <div className="font-manrope mt-4 w-[70%] text-[15px] leading-5 font-semibold text-[#525252] md:mt-[21px] md:w-[530px] xl:mt-[41px] xl:text-right">
                 Комісія від 2%. Фінальні умови — після KYC/AML та вибору
                 маршруту.
               </div>

@@ -52,7 +52,7 @@ const AdvantageCard = ({
       </div>
       <p
         className={cn(
-          "font-body mt-4 sm:max-w-[70%] md:mt-7",
+          "font-manrope mt-4 font-medium sm:max-w-[70%] md:mt-7",
           isDark ? "text-white" : "text-[#525252]",
         )}
       >
@@ -88,7 +88,7 @@ export default function AdvantageSection() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="xl:translate-y-1/2"
             >
-              <div className="font-body mt-4 leading-5 text-[#525252] sm:my-0 md:w-[70%] xl:w-[530px] xl:text-right">
+              <div className="font-manrope mt-4 leading-5 font-semibold text-[#525252] sm:my-0 md:w-[70%] xl:w-[530px] xl:text-right">
                 Швидко, легально таі під ключ. Проводимо перекази будь-яких сум
                 з повним супроводом на кожному етапі — від KYC/AML і договору до
                 конвертації та зарахування коштів.

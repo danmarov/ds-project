@@ -59,7 +59,7 @@ export default function Footer() {
       >
         {!shouldBeShort && (
           <div className="">
-            <h1 className="text-2xl font-semibold uppercase sm:text-2xl md:text-2xl md:leading-none lg:text-7xl xl:text-[84px]">
+            <h1 className="text-2xl font-medium uppercase sm:text-2xl md:text-2xl md:leading-none lg:text-7xl xl:text-[84px]">
               Легальний шлях Переказу{" "}
               <br className="hidden sm:block md:hidden" />
               коштів закордон
@@ -98,7 +98,7 @@ export default function Footer() {
             </Link>
 
             {/* Контакты */}
-            <ul className="font-body flex flex-col items-center justify-center gap-4 text-white sm:flex-row xl:ml-auto xl:flex-row xl:gap-5">
+            <ul className="font-manrope flex flex-col items-center justify-center gap-4 font-medium text-white sm:flex-row xl:ml-auto xl:flex-row xl:gap-5">
               <li className="flex w-full items-center justify-center gap-[14px] sm:w-auto xl:justify-start">
                 <SocialBackdrop>
                   <CustomIcon.Whatsapp />
@@ -121,7 +121,7 @@ export default function Footer() {
           </div>
 
           {/* Нижняя секция с юридической информацией */}
-          <div className="font-body mt-8 xl:mt-15">
+          <div className="font-manrope mt-8 font-medium xl:mt-15">
             {/* Мобильная версия - стек */}
             <div className="flex flex-col gap-4 text-center text-[#F8F8F8] xl:hidden">
               <div className="text-base">

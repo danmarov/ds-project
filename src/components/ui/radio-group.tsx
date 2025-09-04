@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 
-// Mock cn function for the example
-
 interface RadioOptionProps {
   value: string;
   label: string | React.ReactNode;
@@ -27,13 +25,13 @@ const RadioOption: React.FC<RadioOptionProps> = ({
   <label
     className={cn(
       "relative flex h-[46px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-3xl border px-6 py-4 text-center transition-colors",
-      // Border styles
+
       hasError ? "border-red-400" : "border-black",
-      // Background styles
+
       isSelected ? "bg-white text-black" : "bg-gray-100 text-black",
-      // Disabled styles
+
       isDisabled && "cursor-not-allowed opacity-50",
-      // Hover styles (only when not disabled)
+
       optionClassName,
     )}
     onClick={() => !isDisabled && onClick(value)}
@@ -99,7 +97,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   };
 
   return (
-    <div className={cn("font-body w-full", className)}>
+    <div className={cn("font-manrope w-full font-medium", className)}>
       {/* Label */}
       {label && (
         <div

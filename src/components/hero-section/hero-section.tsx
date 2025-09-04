@@ -73,7 +73,7 @@ export default function HeroSection() {
               delay: 0,
               ease: [0.25, 0.4, 0.25, 1],
             }}
-            className="font-body absolute right-4 bottom-8 w-[calc(100%_-_32px)] border-b border-white pb-1.5 text-right text-xs sm:w-[425px] sm:text-sm md:bottom-16 md:text-base"
+            className="font-manrope absolute right-4 bottom-8 w-[calc(100%_-_32px)] border-b border-white pb-1.5 text-right text-xs font-semibold sm:w-[425px] sm:text-sm md:bottom-16 md:text-base"
           >
             Швидко, легально і під ключ: KYC/AML, договір, конвертація та
             зарахування. Комісія від 2%. <br />

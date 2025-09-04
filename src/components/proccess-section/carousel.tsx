@@ -26,26 +26,21 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Функция для запуска автопереключения
   const startAutoPlay = () => {
     if (!autoPlay || slides.length <= 1) return;
 
-    // Очищаем предыдущий интервал если есть
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
-    // Создаем новый интервал
     intervalRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, autoPlayDelay);
   };
 
-  // Запускаем автопереключение при монтировании и изменении параметров
   useEffect(() => {
     startAutoPlay();
 
-    // Очищаем интервал при размонтировании
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -55,7 +50,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
 
   const handleIndicatorClick = (index: number) => {
     setCurrentSlide(index);
-    // Перезапускаем автопереключение с новым таймингом
+
     startAutoPlay();
   };
 
@@ -105,10 +100,10 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
             {/* Контент слайда */}
             <div className="relative w-full text-white sm:ml-6 md:ml-[60px] xl:ml-0">
               <div className="relative z-10 h-full w-fit px-3 sm:w-[80%] md:w-[60%] md:px-0 xl:ml-auto">
-                <p className="text-foreground 350:text-[28px] text-[21px] leading-none font-semibold md:text-[48px] lg:text-[64px]">
+                <p className="text-foreground 350:text-[28px] text-[21px] leading-none font-medium md:text-[48px] lg:text-[64px]">
                   {slide.title}
                 </p>
-                <p className="font-body text-secondary mt-3 w-fit text-xs sm:text-sm md:mt-6 md:max-w-[580px] md:text-base">
+                <p className="font-manrope text-secondary mt-3 w-fit text-xs font-medium sm:text-sm md:mt-6 md:max-w-[580px] md:text-base">
                   {slide.description}
                 </p>
               </div>

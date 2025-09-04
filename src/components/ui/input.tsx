@@ -36,12 +36,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const hasSuffix = Boolean(suffix);
 
     return (
-      <div className={cn("font-body w-full", className)}>
+      <div className={cn("font-manrope w-full font-semibold", className)}>
         {/* Label */}
         {label && (
           <label
             className={cn(
-              "font-body mb-2 block text-lg font-medium text-[#1A1A1A]",
+              "font-manrope mb-2 block text-lg font-medium text-[#1A1A1A]",
               disabled && "text-gray-500",
               labelClassName,
             )}

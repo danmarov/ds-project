@@ -38,11 +38,11 @@ const TariffsCard = ({
       }}
       className={cn(
         "grid flex-shrink-0 cursor-pointer place-items-center rounded-[20px] md:rounded-[40px]",
-        // Адаптивная ширина и отступы
-        "w-full min-w-[280px] px-4 py-8", // мобильные - полная ширина
-        "sm:min-w-[320px] sm:px-6 sm:py-10", // малые планшеты
-        "md:w-fit md:min-w-[350px] md:px-8 md:py-12", // средние планшеты
-        "lg:min-w-[400px] lg:px-[59px] lg:py-[56px]", // десктоп (исходные значения)
+
+        "w-full min-w-[280px] px-4 py-8",
+        "sm:min-w-[320px] sm:px-6 sm:py-10",
+        "md:w-fit md:min-w-[350px] md:px-8 md:py-12",
+        "lg:min-w-[400px] lg:px-[59px] lg:py-[56px]",
         isDark ? "bg-black" : "bg-white",
       )}
     >
@@ -52,12 +52,11 @@ const TariffsCard = ({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: delay + 0.1 }}
           className={cn(
-            // Адаптивные размеры текста
-            "text-4xl leading-tight", // мобильные
-            "sm:text-5xl sm:leading-tight", // малые планшеты
-            "md:text-6xl md:leading-tight", // средние планшеты
-            "lg:text-7xl lg:leading-[80px]", // большие экраны
-            "xl:text-[119px] xl:leading-[100px]", // десктоп (исходные значения)
+            "text-4xl leading-tight",
+            "sm:text-5xl sm:leading-tight",
+            "md:text-6xl md:leading-tight",
+            "lg:text-7xl lg:leading-[80px]",
+            "xl:text-[119px] xl:leading-[100px]",
             isDark ? "text-white" : "text-accent",
             gradientTitle && "gradient-text",
           )}
@@ -74,11 +73,11 @@ const TariffsCard = ({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: delay + 0.15 }}
           className={cn(
-            "font-body text-center leading-5",
-            // Адаптивные размеры текста для subtitle
-            "text-sm", // мобильные
-            "sm:text-base", // малые планшеты
-            "lg:text-lg", // десктоп (исходный размер)
+            "font-manrope text-center leading-5 font-medium",
+
+            "text-sm",
+            "sm:text-base",
+            "lg:text-lg",
             isDark ? "text-white/80" : "text-accent/50",
           )}
         >
@@ -116,7 +115,7 @@ export default function TariffsSection() {
               transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
               className="mt-1.5 xl:mt-0 xl:translate-y-1/2"
             >
-              <div className="font-body w-full text-left text-sm leading-5 text-[#525252] md:w-[70%] md:text-base md:leading-5 xl:w-[530px]">
+              <div className="font-manrope w-full text-left text-sm leading-5 font-semibold text-[#525252] md:w-[70%] md:text-base md:leading-5 xl:w-[530px]">
                 Lorem ipsum dolor sit amet consectetur. Vitae euismod nulla erat
                 morbi amet duis mattis. Ut neque facilisis etiam dolor mauris
                 leo nisl. Sed dictum a eget vestibulum vel vitae et enim turpis.
@@ -210,7 +209,7 @@ export default function TariffsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="font-body text-muted/50 mt-2 text-sm md:mt-4 md:text-center md:text-base"
+            className="font-manrope text-muted/50 mt-2 text-sm font-medium md:mt-4 md:text-center md:text-base"
           >
             Строк та комісія залежать від кейсу. Детальніше — в FAQ.
           </motion.p>
