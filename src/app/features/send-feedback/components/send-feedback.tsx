@@ -157,39 +157,54 @@ export default function SendFeedback() {
           )}
 
           <div className="relative mt-5 h-fit xl:h-[256px] xl:flex-1">
-            <Stepper value="01" className="top-0 z-0 -translate-y-1/3" />
             {currentStep === "contact" && (
-              <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
-                Як до Вас звертатись?
-              </p>
+              <>
+                <Stepper value="01" className="top-0 z-0 -translate-y-1/3" />
+
+                <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
+                  Як до Вас звертатись?
+                </p>
+              </>
             )}
 
             {currentStep === "message" && (
-              <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
-                Залишити ваше повідомлен <br />
-                ня?
-              </p>
+              <>
+                <Stepper value="02" className="top-0 z-0 -translate-y-1/3" />
+
+                <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
+                  Залишити ваше повідомлен <br />
+                  ня?
+                </p>
+              </>
             )}
 
             {currentStep === "success" && (
-              <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
-                Вашу заявку було <br /> надіслано!
-              </p>
+              <>
+                <Stepper value="03" className="top-0 z-0 -translate-y-1/3" />
+
+                <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
+                  Вашу заявку було <br /> надіслано!
+                </p>
+              </>
             )}
 
             {currentStep === "error" && (
-              <div className="relative z-10">
-                <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
-                  Помилка!
-                </p>
-                <p className="mt-4 text-lg">{errorMessage}</p>
-                <Button
-                  onClick={goBack}
-                  className="text-accent border-accent mt-4 md:mt-6"
-                >
-                  Спробувати знову
-                </Button>
-              </div>
+              <>
+                <Stepper value="03" className="top-0 z-0 -translate-y-1/3" />
+
+                <div className="relative z-10">
+                  <p className="450:text-[48px] relative z-10 font-sans text-[38px] leading-none font-semibold sm:text-[64px]">
+                    Помилка!
+                  </p>
+                  <p className="mt-4 text-lg">{errorMessage}</p>
+                  <Button
+                    onClick={goBack}
+                    className="text-accent border-accent mt-4 md:mt-6"
+                  >
+                    Спробувати знову
+                  </Button>
+                </div>
+              </>
             )}
           </div>
 
